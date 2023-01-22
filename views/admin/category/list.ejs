@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPress | Category List</title>
+
+    <%- include('../../partials/styles.ejs') %>
+    
+</head>
+<body>
+
+    <%- include('../../partials/header.ejs') %>
+
+    <div class="container">
+        <br><br><br>
+        <h1>Category List</h1>
+        <br>
+        <a href="/admin/category/create" class="btn btn-primary">+ Category</a>
+        <br><br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% categories.forEach(category => { %>
+                    <tr>
+                        <td><%= category.id %></td>
+                        <td><%= category.title %></td>
+                        <td><%= category.slug %></td>
+                        <td>
+                            <a href="/admin/category/<%= category.id %>" class="btn btn-warning">Edit</a>
+                            <form action="/admin/category/delete" method="post" class="form-delete" onsubmit="checkDelete(event, this)">
+                                <input type="hidden" value="<%= category.id %>" name="id">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+       
+    </div>
+
+    <%- include('../../partials/scripts.ejs') %>
+
+    <script>
+        function checkDelete(event, form){
+            event.preventDefault()
+            let checked = confirm('Are you sure you want to delete this category?')
+            checked && form.submit()
+        }
+    </script>
+
+</body>
+</html>

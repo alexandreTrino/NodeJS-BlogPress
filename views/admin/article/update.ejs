@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlogPress | New Article</title>
+
+    <%- include('../../partials/styles.ejs') %>
+    
+</head>
+<body>
+
+    <%- include('../../partials/header.ejs') %>
+
+    <div class="container">
+        <br><br><br>
+        <h1>New Article</h1>
+        <br>
+
+        <form action="/admin/article/update" method="post" class="form">
+            <label class="mb-2" for="title">Title</label>
+            <input type="text" name="title" class="form-control" id="title" value="<%= title %>">
+            <br>
+            <label class="mb-2" for="title">Category</label>
+            <select name="categoryId" id="categories" class="form-control">
+                <% categories.forEach(category => { %>
+                    <% if (categoryId== category.id) { %>
+                        <option selected value="<%= category.id %>">
+                            <%= category.title %>
+                        </option>
+                    <% } else { %>
+                        <option value="<%= category.id %>">
+                            <%= category.title %>
+                        </option>
+                    <% } %>
+                <% }) %>
+            </select>
+            <br>
+            <label class="mb-2" for="body">Body</label>
+            <textarea name="body" id="body" class="form-control" cols="30" rows="10">
+                <%= body %>
+            </textarea>
+            <br>
+            <input type="hidden" name="id" value="<%= id %>">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+
+    <%- include('../../partials/scripts.ejs') %>
+
+    <script src="/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#body',
+            plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+            tinycomments_mode: 'embedded',
+            tinycomments_author: 'Author name'
+        });
+    </script>
+
+</body>
+</html>

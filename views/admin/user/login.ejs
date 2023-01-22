@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlogPress | Login</title>
+  <%- include('../../partials/styles.ejs') %>
+</head>
+<body>
+
+  <%- include('../../partials/header.ejs') %>
+
+  <section>
+    <div class="container">
+        <h1 class="mb-4">Login</h1>
+
+        <% if (error != 0) { %>
+          <div class="alert alert-warning d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"></use></svg>
+            <div>Username or Password is incorrect!</div>
+          </div>
+        <% } %>
+
+        <form action="/authenticate" method="post" class="form">
+            <label for="email" class="mb-1">Email</label>
+            <input type="email" name="email" class="form-control" placeholder="Ex: jhon@email.com">
+            <br>
+            <label for="password" class="mb-1">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="Create a secure password">
+            <br>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+  </section>
+
+  <%- include('../../partials/scripts.ejs') %>
+</body>
+</html>
